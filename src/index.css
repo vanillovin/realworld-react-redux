@@ -1,0 +1,12 @@
+.App {
+    border: 1.5px solid black;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 15px 28px 25px -18px rgb(0 0 0 / 20%);
+    transition: all 500ms ease 0s;
+}
+
+.App:hover {
+    transform: translate3d(0,2px,0);
+    box-shadow: 2px 4px 4px -5px rgb(0 0 0 / 30%);
+}

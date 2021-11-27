@@ -1,10 +1,16 @@
-import ReactDOM from 'react-dom';
 import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import Counter from './counter/Counter';
+import TodoList from './todomvc/TodoList';
+// import reportWebVitals from './reportWebVitals';
 
-function App(){
-	const name = "자몽";
+//<Counter /><TodoList />
 
-  return <h1>Hello {name}</h1>;
-}
-
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+    <React.StrictMode>
+         <App />
+    </React.StrictMode>,
+    document.getElementById('app')
+);
