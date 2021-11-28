@@ -37,13 +37,15 @@ function TodoList(){
 
         setTodoList(old => old.map(findAndChange))
     }
+
+    const itemsLeftCount = todoList.filter(todo => todo.completed === false).length
     
     return (
         <section className="todoapp">
             <div>
                 <Header addTodo={addTodo} />
                 <Main todoList={todoList} deleteTodo={deleteTodo} completeTodo={completeTodo} />
-                <Footer count={todoList.filter(todo => todo.completed === false).length}/>
+                <Footer count={itemsLeftCount}/>
             </div>
         </section>
     )

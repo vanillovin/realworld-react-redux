@@ -1,16 +1,22 @@
 import React from 'react';
 
+function CountLabel({count}){
+    return (
+        <>
+            <strong>{count}</strong>
+            <span> {count === 1 ? 'item' : 'items'}</span>
+            <span> left</span>
+        </>
+    )
+}
+
 function Footer ({count}){
     return (
         <footer className="footer">
             <span className="todo-count">
                 {count === 0
-                    ? null
-                    : <>
-                        <strong>{count}</strong>
-                        <span> {count === 1 ? 'item' : 'items'}</span>
-                        <span> left</span>
-                      </>}
+                  ? null
+                  : <CountLabel count={count} />}
             </span>
             <ul className="filters">
             <li>
