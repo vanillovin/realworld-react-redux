@@ -13,13 +13,7 @@ function TodoItem ({ content, completed }){
     )
 }
 
-function Main(){
-    const [todoList, setTodoList] = useState([
-        { content : "토끼는 깡총깡총", completed : true },
-        { content : "토끼는 전화해요", completed : false },
-        { content : "자몽은 잠을 또 자야해요", completed : false },
-    ])
-
+function Main({ todoList }){
     return (
         <section className="main">
             <input id="toggle-all" className="toggle-all" type="checkbox" checked={false} />

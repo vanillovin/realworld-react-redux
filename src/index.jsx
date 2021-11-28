@@ -6,11 +6,11 @@ import Counter from './counter/Counter';
 import TodoList from './todomvc/TodoList';
 // import reportWebVitals from './reportWebVitals';
 
-// <App /> <Counter /><TodoList />
+// <App /> <Counter />
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <TodoList />
     </React.StrictMode>,
     document.getElementById('app')
 );
