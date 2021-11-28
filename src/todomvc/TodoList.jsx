@@ -25,12 +25,24 @@ function TodoList(){
     function deleteTodo(targetId){
         setTodoList(old => old.filter(todo => todo.id !== targetId))
     }
+
+    function completeTodo(targetId){
+        function findAndChange(todo){
+            if(todo.id === targetId){
+                return {...todo, completed: ! todo.completed }
+            }
+            
+            return todo
+        }
+
+        setTodoList(old => old.map(findAndChange))
+    }
     
     return (
         <section className="todoapp">
             <div>
                 <Header addTodo={addTodo} />
-                <Main todoList={todoList} deleteTodo={deleteTodo}/>
+                <Main todoList={todoList} deleteTodo={deleteTodo} completeTodo={completeTodo} />
                 <Footer />
             </div>
         </section>
