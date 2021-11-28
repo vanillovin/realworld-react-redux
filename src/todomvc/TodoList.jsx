@@ -43,7 +43,7 @@ function TodoList(){
             <div>
                 <Header addTodo={addTodo} />
                 <Main todoList={todoList} deleteTodo={deleteTodo} completeTodo={completeTodo} />
-                <Footer />
+                <Footer count={todoList.filter(todo => todo.completed === false).length}/>
             </div>
         </section>
     )

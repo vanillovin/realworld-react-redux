@@ -1,12 +1,16 @@
 import React from 'react';
 
-function Footer (){
+function Footer ({count}){
     return (
         <footer className="footer">
             <span className="todo-count">
-                <strong>2</strong>
-                <span> items</span>
-                <span> left</span>
+                {count === 0
+                    ? null
+                    : <>
+                        <strong>{count}</strong>
+                        <span> {count === 1 ? 'item' : 'items'}</span>
+                        <span> left</span>
+                      </>}
             </span>
             <ul className="filters">
             <li>
