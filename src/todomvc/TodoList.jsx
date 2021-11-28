@@ -8,26 +8,29 @@ import Footer from "./Footer";
 
 function TodoList(){
     const [todoList, setTodoList] = useState([
-        { content: "토끼는 깡총깡총", completed: true },
-        { content: "토끼는 전화해요", completed: false },
-        { content: "자몽은 잠을 또 자야해요", completed: false },
+        { id: crypto.randomUUID(), content: "토끼는 전화해요", completed: false },
     ])
 
     function addTodo(content){
         if(content === '') return;
 
         const newTodo = {
+            id: crypto.randomUUID(),
             content,
             completed: false,
         }
         setTodoList(old => [...old, newTodo])
+    }
+
+    function deleteTodo(targetId){
+        setTodoList(old => old.filter(todo => todo.id !== targetId))
     }
     
     return (
         <section className="todoapp">
             <div>
                 <Header addTodo={addTodo} />
-                <Main todoList={todoList} />
+                <Main todoList={todoList} deleteTodo={deleteTodo}/>
                 <Footer />
             </div>
         </section>
