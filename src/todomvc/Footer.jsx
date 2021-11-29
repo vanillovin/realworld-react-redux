@@ -10,7 +10,7 @@ function CountLabel({count}){
     )
 }
 
-function Footer ({count}){
+function Footer ({count, filter, setFilter}){
     return (
         <footer className="footer">
             <span className="todo-count">
@@ -19,17 +19,14 @@ function Footer ({count}){
                   : <CountLabel count={count} />}
             </span>
             <ul className="filters">
-            <li>
-                <a href="#/" className="selected">All</a>
-            </li>
-            <span> </span>
-            <li>
-                <a href="#/active" className="">Active</a>
-            </li>
-            <span> </span>
-            <li>
-                <a href="#/completed" className="">Completed</a>
-            </li>
+                {['all', 'active', 'completed'].map((name) => (
+                    <li>
+                        <a href={"#/" + name} className={filter === name ? 'selected' : null}
+                            onClick={(e) => setFilter(name)}>
+                            {name}
+                        </a>
+                    </li>
+                ))}
             </ul>
             <button className="clear-completed">Clear completed</button>
         </footer>

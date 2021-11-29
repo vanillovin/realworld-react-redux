@@ -48,14 +48,28 @@ function TodoList(){
         setTodoList(old => old.map(findAndChange))
     }
 
-    const itemsLeftCount = todoList.filter(todo => todo.completed === false).length
-    
+    const itemsLeftCount = todoList.filter(todo => todo.completed === false).length;
+
+    const [filter, setFilter] = useState('all');
+
+    function getFilteredTodoList(filter){
+        if(filter === "active"){
+            return todoList.filter(todo => !todo.completed);
+        }
+        if(filter === "completed"){
+            return todoList.filter(todo => todo.completed);
+        }
+        return todoList;
+    }
+
+    const filteredTodoList = getFilteredTodoList(filter);
+
     return (
         <section className="todoapp">
             <div>
                 <Header addTodo={addTodo} />
-                <Main todoList={todoList} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />
-                <Footer count={itemsLeftCount}/>
+                <Main todoList={filteredTodoList} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />
+                <Footer count={itemsLeftCount} filter={filter} setFilter={setFilter} />
             </div>
         </section>
     )

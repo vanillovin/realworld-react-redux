@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 
 function TodoItem ({ id, content, completed, deleteTodo, completeTodo, changeTodo }){
     const [editing, setEditing] = useState(false);
+
+    function handleDoubleClick(e) {
+        setEditing(true);
+    }
+
+    function handleBlur(e) {
+        setEditing(false);
+    }
     
-    function handleDoubleClick(e){
-        setEditing(old => true);
-    }
-
-    function handleBlur(e){
-        setEditing(old => false);
-    }
-
     function handleDelete(e) {
         deleteTodo(id);
     }
@@ -34,12 +34,12 @@ function TodoItem ({ id, content, completed, deleteTodo, completeTodo, changeTod
     
     return (
         <li className={(completed ? 'completed' : '') + ' ' + (editing ? 'editing' : '')}>
-            <div className="view" onDoubleClick={handleDoubleClick}>
+            <div className="view" onDoubleClick={handleDoubleClick} >
                 <input className="toggle" type="checkbox" checked={completed} onClick={handleComplete} />
                 <label>{content}</label>
                 <button className="destroy" onClick={handleDelete}></button>
             </div>
-            <input className="edit" value={todoInput} onKeyUp={handleKeyUp} onChange={handleChange} onBlur={handleBlur}/>
+            <input className="edit" value={todoInput} onKeyUp={handleKeyUp} onChange={handleChange} onBlur={handleBlur} />
         </li>
     )
 }
