@@ -3,6 +3,7 @@ import "./TodoList.css";
 import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
+import { produce } from 'immer';
 
 // https://github.com/twinstae/realworld-react-redux/commits/main/todoMVC-react
 
@@ -27,25 +28,19 @@ function TodoList(){
     }
 
     function completeTodo(targetId){
-        function findAndChange(todo){
-            if(todo.id === targetId){
-                return { ...todo, completed: ! todo.completed }
-            }
-            return todo;
-        }
+        setTodoList(produce(old => {
+            const target = old.find(todo => todo.id === targetId);
 
-        setTodoList(old => old.map(findAndChange))
+            target.completed = ! todo.completed;
+        }))
     }
 
     function changeTodo(targetId, newContent){
-        function findAndChange(todo){
-            if(todo.id === targetId){
-                return { ...todo, content: newContent }
-            }
-            return todo;
-        }
+        setTodoList(produce(old => {
+            const target = old.find(todo => todo.id === targetId);
 
-        setTodoList(old => old.map(findAndChange))
+            target.content = newContent;
+        }))
     }
 
     const itemsLeftCount = todoList.filter(todo => todo.completed === false).length;
