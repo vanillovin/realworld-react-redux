@@ -29,10 +29,20 @@ function TodoList(){
     function completeTodo(targetId){
         function findAndChange(todo){
             if(todo.id === targetId){
-                return {...todo, completed: ! todo.completed }
+                return { ...todo, completed: ! todo.completed }
             }
-            
-            return todo
+            return todo;
+        }
+
+        setTodoList(old => old.map(findAndChange))
+    }
+
+    function changeTodo(targetId, newContent){
+        function findAndChange(todo){
+            if(todo.id === targetId){
+                return { ...todo, content: newContent }
+            }
+            return todo;
         }
 
         setTodoList(old => old.map(findAndChange))
@@ -44,7 +54,7 @@ function TodoList(){
         <section className="todoapp">
             <div>
                 <Header addTodo={addTodo} />
-                <Main todoList={todoList} deleteTodo={deleteTodo} completeTodo={completeTodo} />
+                <Main todoList={todoList} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />
                 <Footer count={itemsLeftCount}/>
             </div>
         </section>
