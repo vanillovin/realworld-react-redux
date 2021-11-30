@@ -10,7 +10,7 @@ function CountLabel({count}){
     )
 }
 
-function Footer ({count, filter, setFilter}){
+function Footer ({count, filter, setFilter, clearCompleted}){
     return (
         <footer className="footer">
             <span className="todo-count">
@@ -28,7 +28,7 @@ function Footer ({count, filter, setFilter}){
                     </li>
                 ))}
             </ul>
-            <button className="clear-completed">Clear completed</button>
+            <button className="clear-completed" onClick={(e) => clearCompleted()}>Clear completed</button>
         </footer>
     )
 }

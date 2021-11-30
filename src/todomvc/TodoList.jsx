@@ -17,22 +17,10 @@ function TodoList(){
 
         const newTodo = {
             id: crypto.randomUUID(),
-            content,
             completed: false,
+            content,
         }
         setTodoList(old => [...old, newTodo])
-    }
-
-    function deleteTodo(targetId){
-        setTodoList(old => old.filter(todo => todo.id !== targetId))
-    }
-
-    function completeTodo(targetId){
-        setTodoList(produce(old => {
-            const target = old.find(todo => todo.id === targetId);
-
-            target.completed = ! todo.completed;
-        }))
     }
 
     function changeTodo(targetId, newContent){
@@ -41,6 +29,34 @@ function TodoList(){
 
             target.content = newContent;
         }))
+    }
+    
+    function completeTodo(targetId){
+        setTodoList(produce(old => {
+            const target = old.find(todo => todo.id === targetId);
+
+            target.completed = ! target.completed;
+        }))
+    }
+
+    function completeAll(){
+        if(todoList.every(todo => todo.completed)){
+            setTodoList(old => old.map(todo => ({...todo, completed: false})))
+        } else {
+            setTodoList(old => old.map(todo => ({...todo, completed: true})))
+        }
+    }
+
+
+    // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array
+
+    function clearCompleted(){
+        setTodoList(old => old.filter(todo => todo.completed === false))
+    }
+
+
+    function deleteTodo(targetId){
+        setTodoList(old => old.filter(todo => todo.id !== targetId))
     }
 
     const itemsLeftCount = todoList.filter(todo => todo.completed === false).length;
@@ -62,9 +78,9 @@ function TodoList(){
     return (
         <section className="todoapp">
             <div>
-                <Header addTodo={addTodo} />
-                <Main todoList={filteredTodoList} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />
-                <Footer count={itemsLeftCount} filter={filter} setFilter={setFilter} />
+                <Header addTodo={addTodo}/>
+                <Main todoList={filteredTodoList} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} completeAll={completeAll}/>
+                <Footer count={itemsLeftCount} filter={filter} setFilter={setFilter} clearCompleted={clearCompleted} />
             </div>
         </section>
     )

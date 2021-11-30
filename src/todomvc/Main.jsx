@@ -44,10 +44,12 @@ function TodoItem ({ id, content, completed, deleteTodo, completeTodo, changeTod
     )
 }
 
-function Main({ todoList, deleteTodo, completeTodo, changeTodo }){
+ㅊfunction Main({ todoList, deleteTodo, completeTodo, changeTodo, completeAll }){
     return (
         <section className="main">
-            <input id="toggle-all" className="toggle-all" type="checkbox" checked={false} />
+            <input id="toggle-all" className="toggle-all" type="checkbox"
+              checked={todoList.every(todo => todo.completed)}
+              onClick={(e) => completeAll()} />
             <label htmlFor="toggle-all"></label>
             <ul className="todo-list">
                 {todoList.map(todo => <TodoItem {...todo} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />)}
