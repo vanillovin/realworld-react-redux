@@ -52,7 +52,7 @@ function Main({ todoList, deleteTodo, completeTodo, changeTodo, completeAll }){
               onClick={(e) => completeAll()} />
             <label htmlFor="toggle-all"></label>
             <ul className="todo-list">
-                {todoList.map(todo => <TodoItem {...todo} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />)}
+                {todoList.map(todo => <TodoItem key={todo.id} {...todo} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />)}
             </ul>
         </section>
     )
