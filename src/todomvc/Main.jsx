@@ -44,7 +44,7 @@ function TodoItem ({ id, content, completed, deleteTodo, completeTodo, changeTod
     )
 }
 
-ㅊfunction Main({ todoList, deleteTodo, completeTodo, changeTodo, completeAll }){
+function Main({ todoList, deleteTodo, completeTodo, changeTodo, completeAll }){
     return (
         <section className="main">
             <input id="toggle-all" className="toggle-all" type="checkbox"
