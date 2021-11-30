@@ -23,13 +23,13 @@ function Footer ({count, filter, setFilter}){
             </span>
             <ul className="filters">
                 {['all', 'active', 'completed'].map((name) => (
-                    <li>
-                        <a href={"#/" + name} className={filter === name ? 'selected' : null}
-                            onClick={(e) => setFilter(name)}>
-                            {name}
-                        </a>
-                    </li>
-                ))}
+                        <li>
+                            <a href={"#/" + name} className={filter === name ? 'selected' : null}
+                                onClick={(e) => setFilter(name)}>
+                                {name}
+                            </a>
+                        </li>
+                    ))}
             </ul>
             <button className="clear-completed" onClick={(e) => clearCompleted()}>Clear completed</button>
         </footer>

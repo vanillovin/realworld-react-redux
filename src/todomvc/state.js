@@ -54,7 +54,9 @@ function useTodoListAtom(){
         setTodoList(old => old.filter(todo => todo.completed === false))
     }
 
-    return { todoList, addTodo, changeTodo, completeTodo, completeAll, deleteTodo, clearCompleted };
+    const loadSaved = setTodoList
+
+    return { todoList, loadSaved, addTodo, changeTodo, completeTodo, completeAll, deleteTodo, clearCompleted };
 }
 
 export default useTodoListAtom;
