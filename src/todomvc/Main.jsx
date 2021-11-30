@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import useTodoListAtom from './state';
 
-function TodoItem ({ id, content, completed, deleteTodo, completeTodo, changeTodo }){
+function TodoItem ({ id, content, completed }){
     const [editing, setEditing] = useState(false);
 
     function handleDoubleClick(e) {
@@ -10,6 +11,8 @@ function TodoItem ({ id, content, completed, deleteTodo, completeTodo, changeTod
     function handleBlur(e) {
         setEditing(false);
     }
+
+    const { deleteTodo, completeTodo, changeTodo } = useTodoListAtom();
     
     function handleDelete(e) {
         deleteTodo(id);
@@ -44,7 +47,9 @@ function TodoItem ({ id, content, completed, deleteTodo, completeTodo, changeTod
     )
 }
 
-function Main({ todoList, deleteTodo, completeTodo, changeTodo, completeAll }){
+function Main({ todoList }){
+    const { completeAll } = useTodoListAtom();
+
     return (
         <section className="main">
             <input id="toggle-all" className="toggle-all" type="checkbox"
@@ -52,7 +57,7 @@ function Main({ todoList, deleteTodo, completeTodo, changeTodo, completeAll }){
               onClick={(e) => completeAll()} />
             <label htmlFor="toggle-all"></label>
             <ul className="todo-list">
-                {todoList.map(todo => <TodoItem key={todo.id} {...todo} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} />)}
+                {todoList.map(todo => <TodoItem key={todo.id} {...todo} />)}
             </ul>
         </section>
     )

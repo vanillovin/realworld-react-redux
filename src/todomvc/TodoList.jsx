@@ -8,7 +8,7 @@ import useTodoListAtom from './state';
 // https://github.com/twinstae/realworld-react-redux/commits/main/todoMVC-react
 
 function TodoList(){
-    const { todoList, addTodo, changeTodo, completeTodo, completeAll, deleteTodo, clearCompleted } = useTodoListAtom();
+    const { todoList } = useTodoListAtom();
     
     const itemsLeftCount = todoList.filter(todo => todo.completed === false).length;
 
@@ -29,9 +29,9 @@ function TodoList(){
     return (
         <section className="todoapp">
             <div>
-                <Header addTodo={addTodo}/>
-                <Main todoList={filteredTodoList} deleteTodo={deleteTodo} completeTodo={completeTodo} changeTodo={changeTodo} completeAll={completeAll}/>
-                <Footer count={itemsLeftCount} filter={filter} setFilter={setFilter} clearCompleted={clearCompleted} />
+                <Header />
+                <Main todoList={filteredTodoList}/>
+                <Footer count={itemsLeftCount} filter={filter} setFilter={setFilter} />
             </div>
         </section>
     )

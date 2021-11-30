@@ -1,10 +1,12 @@
-import {useState} from "react";
+import {atom, useAtom} from 'jotai';
 import { produce } from 'immer';
 
+const todoListAtom = atom([
+    { id: crypto.randomUUID(), content: "토끼는 전화해요", completed: false },
+]);
+
 function useTodoListAtom(){
-    const [todoList, setTodoList] = useState([
-        { id: crypto.randomUUID(), content: "토끼는 전화해요", completed: false },
-    ])
+    const [todoList, setTodoList] = useAtom(todoListAtom)
 
     function addTodo(content){
         if(content !== '') {

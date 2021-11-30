@@ -1,4 +1,5 @@
 import React from 'react';
+import useTodoListAtom from './state';
 
 function CountLabel({count}){
     return (
@@ -10,7 +11,9 @@ function CountLabel({count}){
     )
 }
 
-function Footer ({count, filter, setFilter, clearCompleted}){
+function Footer ({count, filter, setFilter}){
+    const { clearCompleted } = useTodoListAtom();
+
     return (
         <footer className="footer">
             <span className="todo-count">
