@@ -7,17 +7,17 @@ import useTodoListAtom from './state';
 
 // https://github.com/twinstae/realworld-react-redux/commits/main/todoMVC-react
 
-function useLocalStorage(key, state, setState){
-    useEffect(()=>{
-      const saved = localStorage.getItem(key);
-      if(saved){
-        setState(JSON.parse(saved));
-      }
-    }, [])
+function useLocalStorage(key: string, state: Array<Todo>, setState: (list: Array<Todo>) => void){
+  useEffect(()=>{
+    const saved = localStorage.getItem(key);
+    if(saved){
+      setState(JSON.parse(saved));
+    }
+  }, [])
   
-    useEffect(()=>{
-      localStorage.setItem(key, JSON.stringify(state))
-    }, [state])
+  useEffect(()=>{
+    localStorage.setItem(key, JSON.stringify(state))
+  }, [state])
 }
 
 function TodoList(){
