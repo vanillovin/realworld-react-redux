@@ -1,14 +1,14 @@
 import {atom, useAtom} from 'jotai';
 import { produce } from 'immer';
 
-const todoListAtom = atom([
+const todoListAtom = atom<Array<Todo>>([
     { id: crypto.randomUUID(), content: "토끼는 전화해요", completed: false },
 ]);
 
 function useTodoListAtom(){
     const [todoList, setTodoList] = useAtom(todoListAtom)
 
-    function addTodo(content){
+    function addTodo(content: string){
         if(content !== '') {
             const newTodo = {
                 id : crypto.randomUUID(),
@@ -19,19 +19,21 @@ function useTodoListAtom(){
         }
     }
 
-    function changeTodo(targetId, newContent){
+    function changeTodo(targetId: string, newContent: string){
         setTodoList(produce(old => {
             const target = old.find(todo => todo.id === targetId);
-
-            target.content = newContent;
+            if(target !== undefined){
+                target.content = newContent;
+            }
         }))
     }
 
-    function completeTodo(targetId){
+    function completeTodo(targetId: string){
         setTodoList(produce(old =>{
             const target = old.find(todo => todo.id === targetId);
-
-            target.completed = ! target.completed;
+            if(target !== undefined){
+                target.completed = ! target.completed;
+            }
         }))
     }
    
@@ -46,7 +48,7 @@ function useTodoListAtom(){
 
     // https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array
 
-    function deleteTodo(targetId){
+    function deleteTodo(targetId: string){
         setTodoList(old => old.filter(todo => todo.id !== targetId))
     }
 
