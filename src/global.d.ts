@@ -1,6 +1,8 @@
 
 type Todo = {
-    id: any;
+    id: string;
     content: string;
     completed: boolean;
 };
+
+type Filter = "all" | "active" | "completed";
