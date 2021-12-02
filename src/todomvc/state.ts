@@ -1,13 +1,14 @@
 import {atom, useAtom} from 'jotai';
 import { produce } from 'immer';
-
+;
 const todoListAtom = atom<Array<Todo>>([
-    { id: crypto.randomUUID(), content: "토끼는 전화해요", completed: false },
+    { id: crypto.randomUUID(), content: "할일을 추가하기", completed: false },
+    { id: crypto.randomUUID(), content: "할일을 완료하기", completed: false },
 ]);
 
 function useTodoListAtom(){
     const [todoList, setTodoList] = useAtom(todoListAtom)
-
+    
     function addTodo(content: string){
         if(content !== '') {
             const newTodo = {
