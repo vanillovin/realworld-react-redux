@@ -1,9 +1,10 @@
 import {atom, useAtom} from 'jotai';
 import { produce } from 'immer';
-;
+import uuid from "../uuid";
+
 const todoListAtom = atom<Array<Todo>>([
-    { id: crypto.randomUUID(), content: "할일을 추가하기", completed: false },
-    { id: crypto.randomUUID(), content: "할일을 완료하기", completed: false },
+    { id: uuid(), content: "할일을 추가하기", completed: false },
+    { id: uuid(), content: "할일을 완료하기", completed: false },
 ]);
 
 function useTodoListAtom(){
@@ -12,7 +13,7 @@ function useTodoListAtom(){
     function addTodo(content: string){
         if(content !== '') {
             const newTodo = {
-                id : crypto.randomUUID(),
+                id : uuid(),
                 content : content,
                 completed : false,
             }
