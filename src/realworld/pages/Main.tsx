@@ -35,76 +35,30 @@ function Main() {
               </div>
 
               <div>
-                <ArticlePreview />
-                <div className="article-preview">
-                  <div className="article-meta">
-                    <a className="" href="#@Gerome">
-                      <img src="https://api.realworld.io/images/demo-avatar.png" />
-                    </a>
-                    <div className="info">
-                      <a className="author" href="#@Gerome">
-                        Gerome
-                      </a>
-                      <span className="date">Wed Nov 24 2021</span>
-                    </div>
-                    <div className="pull-xs-right">
-                      <button className="btn btn-sm btn-outline-primary">
-                        <i className="ion-heart"></i> 193
-                      </button>
-                    </div>
-                  </div>
-                  <a
-                    className="preview-link"
-                    href="#article/Create-a-new-implementation-1"
-                  >
-                    <h1>Create a new implementation</h1>
-                    <p>join the community by creating a new implementation</p>
-                    <span>Read more...</span>
-                    <ul className="tag-list">
-                      <li className="tag-default tag-pill tag-outline">
-                        implementations
-                      </li>
-                    </ul>
-                  </a>
-                </div>
-
-                <div className="article-preview">
-                  <div className="article-meta">
-                    <a className="" href="#@Gerome">
-                      <img src="https://api.realworld.io/images/demo-avatar.png" />
-                    </a>
-                    <div className="info">
-                      <a className="author" href="#@Gerome">
-                        Gerome
-                      </a>
-                      <span className="date">Wed Nov 24 2021</span>
-                    </div>
-                    <div className="pull-xs-right">
-                      <button className="btn btn-sm btn-outline-primary">
-                        <i className="ion-heart"></i>79
-                      </button>
-                    </div>
-                  </div>
-                  <a
-                    className="preview-link"
-                    href="#article/Welcome-to-RealWorld-project-1"
-                  >
-                    <h1>Welcome to RealWorld project</h1>
-                    <p>
-                      Exemplary fullstack Medium.com clone powered by React,
-                      Angular, Node, Django, and many more
-                    </p>
-                    <span>Read more...</span>
-                    <ul className="tag-list">
-                      <li className="tag-default tag-pill tag-outline">
-                        welcome
-                      </li>
-                      <li className="tag-default tag-pill tag-outline">
-                        introduction
-                      </li>
-                    </ul>
-                  </a>
-                </div>
+                <ArticlePreview
+                  authorName="Gerome"
+                  createdAt={new Date("2021-11-24")}
+                  favoriteCount={194}
+                  title="Create a new implementation"
+                  description="join the community by creating a new implementation"
+                  tagList={["implementations"]}
+                />
+                <ArticlePreview
+                  authorName="Gerome"
+                  createdAt={new Date("2021-11-24")}
+                  favoriteCount={128}
+                  title="Explore implementations"
+                  description="discover the implementations created by the RealWorld community"
+                  tagList={["codebaseShow", "implementations"]}
+                />
+                <ArticlePreview
+                  authorName="Gerome"
+                  createdAt={new Date("2021-11-24")}
+                  favoriteCount={80}
+                  title="Welcome to RealWorld project"
+                  description="Exemplary fullstack Medium.com clone powered by React, Angular, Node, Django, and many more"
+                  tagList={["welcome", "introduction"]}
+                />
               </div>
             </div>
             <div className="col-md-3">

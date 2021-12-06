@@ -1,6 +1,21 @@
 import React from "react";
+type Article = {
+  authorName: string;
+  createdAt: Date;
+  favoriteCount: number;
+  title: string;
+  description: string;
+  tagList: Array<string>;
+};
 
-function ArticlePreview() {
+function ArticlePreview({
+  authorName,
+  createdAt,
+  favoriteCount,
+  title,
+  description,
+  tagList,
+}: Article) {
   return (
     <div className="article-preview">
       <div className="article-meta">
@@ -9,23 +24,25 @@ function ArticlePreview() {
         </a>
         <div className="info">
           <a className="author" href="#@Gerome">
-            Gerome
+            {authorName}
           </a>
-          <span className="date">Wed Nov 24 2021</span>
+          <span className="date">{createdAt.toLocaleDateString("ko-kr")}</span>
         </div>
         <div className="pull-xs-right">
           <button className="btn btn-sm btn-outline-primary">
-            <i className="ion-heart"></i>127
+            <i className="ion-heart"></i>
+            {favoriteCount}
           </button>
         </div>
       </div>
       <a className="preview-link" href="#article/Explore-implementations-1">
-        <h1>Explore implementations</h1>
-        <p>discover the implementations created by the RealWorld community</p>
+        <h1>{title}</h1>
+        <p>{description}</p>
         <span>Read more...</span>
         <ul className="tag-list">
-          <li className="tag-default tag-pill tag-outline">codebaseShow</li>
-          <li className="tag-default tag-pill tag-outline">implementations</li>
+          {tagList.map((tag) => (
+            <li className="tag-default tag-pill tag-outline">{tag}</li>
+          ))}
         </ul>
       </a>
     </div>
