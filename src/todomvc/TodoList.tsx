@@ -49,7 +49,8 @@ function TodoList() {
   return (
     <section className="todoapp">
       <div>
-        <Header /> <Main todoList={filteredTodoList} />{" "}
+        <Header />
+        <Main todoList={filteredTodoList} />
         <Footer count={itemsLeftCount} filter={filter} setFilter={setFilter} />
       </div>
     </section>
