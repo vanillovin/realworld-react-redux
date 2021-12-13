@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../style.css";
 import NavigationBar from "../components/NavigationBar";
-// https://react-redux.realworld.io/#/?_k=62bcsl
 import ArticlePreview from "../components/ArticlePreview";
+// https://react-redux.realworld.io/#/?_k=62bcsl
 
 function Banner() {
   return (
@@ -15,7 +15,38 @@ function Banner() {
   );
 }
 
+type Article = {
+  author: {
+    username: string;
+    bio: null | string;
+    image: string;
+  };
+  body: string;
+  createdAt: string;
+  description: string;
+  favorited: boolean;
+  favoritesCount: number;
+  slug: string;
+  tagList: Array<string>;
+  title: string;
+  updateAt: string;
+};
+
 function Main() {
+  // https://frw.nsidnev.dev/docs
+  // https://api.realworld.io/api/articles?limit=10&offset=0
+  const [articleList, setArticleList] = useState<Array<Article>>([]);
+
+  useEffect(() => {
+    fetch("https://api.realworld.io/api/articles?limit=10&offset=0")
+      .then((res) => res.json())
+      .then((body) => setArticleList(body.articles));
+  }, []);
+
+  if (articleList.length === 0) {
+    return <span>로딩 중</span>;
+  }
+
   return (
     <div>
       <NavigationBar />
@@ -33,32 +64,19 @@ function Main() {
                   </li>
                 </ul>
               </div>
-
               <div>
-                <ArticlePreview
-                  authorName="Gerome"
-                  createdAt={new Date("2021-11-24")}
-                  favoriteCount={194}
-                  title="Create a new implementation"
-                  description="join the community by creating a new implementation"
-                  tagList={["implementations"]}
-                />
-                <ArticlePreview
-                  authorName="Gerome"
-                  createdAt={new Date("2021-11-24")}
-                  favoriteCount={128}
-                  title="Explore implementations"
-                  description="discover the implementations created by the RealWorld community"
-                  tagList={["codebaseShow", "implementations"]}
-                />
-                <ArticlePreview
-                  authorName="Gerome"
-                  createdAt={new Date("2021-11-24")}
-                  favoriteCount={80}
-                  title="Welcome to RealWorld project"
-                  description="Exemplary fullstack Medium.com clone powered by React, Angular, Node, Django, and many more"
-                  tagList={["welcome", "introduction"]}
-                />
+                {articleList.map((article) => (
+                  <ArticlePreview
+                    key={article.slug}
+                    slug={article.slug}
+                    authorName={article.author.username}
+                    createdAt={new Date(article.createdAt)}
+                    favoriteCount={article.favoritesCount}
+                    title={article.title}
+                    description={article.description}
+                    tagList={article.tagList}
+                  />
+                ))}
               </div>
             </div>
             <div className="col-md-3">
