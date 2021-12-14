@@ -15,25 +15,7 @@ function Banner() {
   );
 }
 
-type Article = {
-  author: {
-    username: string;
-    bio: null | string;
-    image: string;
-  };
-  body: string;
-  createdAt: string;
-  description: string;
-  favorited: boolean;
-  favoritesCount: number;
-  slug: string;
-  tagList: Array<string>;
-  title: string;
-  updateAt: string;
-};
-
 function Main() {
-  // https://frw.nsidnev.dev/docs
   // https://api.realworld.io/api/articles?limit=10&offset=0
   const [articleList, setArticleList] = useState<Array<Article>>([]);
 

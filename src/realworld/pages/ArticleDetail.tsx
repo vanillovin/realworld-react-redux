@@ -1,11 +1,67 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import NavigationBar from "../components/NavigationBar";
 
-// http://localhost:3000/
+`/articles/:slug`;
+// http://localhost:3000/articles/라면-먹기
+
+interface CommentCardProps {
+  body: string;
+  author: {
+    username: string;
+    image: string;
+  };
+  createdAt: string;
+}
+
+function CommentCard({ body, author, createdAt }: CommentCardProps) {
+  return (
+    <div className="card">
+      <div className="card-block">
+        <p className="card-text">{body}</p>
+      </div>
+      <div className="card-footer">
+        <a className="comment-author" href={"#@" + author.username}>
+          <img src={author.image} className="comment-author-img" />
+        </a>
+        &nbsp;
+        <a className="comment-author" href={"#@" + author.username}>
+          {author.username}
+        </a>
+        <span className="date-posted">
+          {new Date(createdAt).toLocaleDateString("ko-kr")}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 function ArticleDetail() {
   const { slug } = useParams();
+
+  const [article, setArticle] = useState<Article | null>(null);
+
+  useEffect(() => {
+    fetch(`https://api.realworld.io/api/articles/${slug}`)
+      .then((res) => res.json())
+      .then((body) => setArticle(body.article));
+  }, []);
+
+  const [commentList, setCommentList] = useState<Array<CommentData> | null>(
+    null
+  );
+
+  useEffect(() => {
+    fetch(`https://api.realworld.io/api/articles/${slug}/comments`)
+      .then((res) => res.json())
+      .then((body) => setCommentList(body.comments));
+  }, []);
+
+  if (article === null || commentList === null) {
+    return <span>로딩 중</span>;
+  }
+
+  const authorName = article.author.username;
 
   return (
     <div data-reactroot="">
@@ -13,16 +69,18 @@ function ArticleDetail() {
       <div className="article-page">
         <div className="banner">
           <div className="container">
-            <h1>{slug} Create a new implementation</h1>
+            <h1>{article.title}</h1>
             <div className="article-meta">
-              <a className="" href="#@Gerome">
-                <img src="https://api.realworld.io/images/demo-avatar.png" />
+              <a className="" href={"#@" + authorName}>
+                <img src={article.author.image} />
               </a>
               <div className="info">
-                <a className="author" href="#@Gerome">
-                  Gerome
+                <a className="author" href={"#@" + authorName}>
+                  {authorName}
                 </a>
-                <span className="date">Wed Nov 24 2021</span>
+                <span className="date">
+                  {new Date(article.createdAt).toLocaleDateString("ko-kr")}
+                </span>
               </div>
               <span></span>
             </div>
@@ -32,15 +90,14 @@ function ArticleDetail() {
           <div className="row article-content">
             <div className="col-xs-12">
               <div>
-                <p>
-                  Share your knowledge and enpower the community by creating a
-                  new implementation
-                </p>
+                <p>{article.body}</p>
               </div>
               <ul className="tag-list">
-                <li className="tag-default tag-pill tag-outline">
-                  implementations
-                </li>
+                {article.tagList.map((tag) => (
+                  <li key={tag} className="tag-default tag-pill tag-outline">
+                    {tag}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -59,28 +116,9 @@ function ArticleDetail() {
                 &nbsp;to add comments on this article.
               </p>
               <div>
-                <div className="card">
-                  <div className="card-block">
-                    <p className="card-text">
-                      Before starting a new implementation, please check if
-                      there is any work in progress for the stack you want to
-                      work on.
-                    </p>
-                  </div>
-                  <div className="card-footer">
-                    <a className="comment-author" href="#@Gerome">
-                      <img
-                        src="https://api.realworld.io/images/demo-avatar.png"
-                        className="comment-author-img"
-                      />
-                    </a>
-                    &nbsp;
-                    <a className="comment-author" href="#@Gerome">
-                      Gerome
-                    </a>
-                    <span className="date-posted">Wed Nov 24 2021</span>
-                  </div>
-                </div>
+                {commentList.map((comment) => (
+                  <CommentCard key={comment.id} {...comment} />
+                ))}
               </div>
             </div>
           </div>
