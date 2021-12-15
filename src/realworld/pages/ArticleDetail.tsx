@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import { useParams } from "react-router";
 import NavigationBar from "../components/NavigationBar";
-
-`/articles/:slug`;
-// http://localhost:3000/articles/라면-먹기
 
 interface CommentCardProps {
   body: string;
@@ -39,26 +37,39 @@ function CommentCard({ body, author, createdAt }: CommentCardProps) {
 function ArticleDetail() {
   const { slug } = useParams();
 
-  const [article, setArticle] = useState<Article | null>(null);
-
-  useEffect(() => {
+  const {
+    isLoading: isArticleLoading,
+    error: articleError,
+    data: article,
+  } = useQuery<Article, Error>("Article/" + slug, () =>
     fetch(`https://api.realworld.io/api/articles/${slug}`)
       .then((res) => res.json())
-      .then((body) => setArticle(body.article));
-  }, []);
-
-  const [commentList, setCommentList] = useState<Array<CommentData> | null>(
-    null
+      .then((body) => body.article)
   );
 
-  useEffect(() => {
+  const {
+    isLoading: isCommentsLoading,
+    error: commentsError,
+    data: commentList,
+  } = useQuery<Array<CommentData>, Error>("Comments/" + slug, () =>
     fetch(`https://api.realworld.io/api/articles/${slug}/comments`)
       .then((res) => res.json())
-      .then((body) => setCommentList(body.comments));
-  }, []);
+      .then((body) => body.comments)
+  );
 
-  if (article === null || commentList === null) {
+  if (isArticleLoading || isCommentsLoading) {
     return <span>로딩 중</span>;
+  }
+
+  if (articleError instanceof Error || commentsError instanceof Error) {
+    return (
+      <span>
+        에러가 발생했습니다. {articleError?.message} {commentsError?.message}
+      </span>
+    );
+  }
+  if (article === undefined) {
+    return <span>아티클이 없습니다!</span>;
   }
 
   const authorName = article.author.username;
@@ -116,7 +127,7 @@ function ArticleDetail() {
                 &nbsp;to add comments on this article.
               </p>
               <div>
-                {commentList.map((comment) => (
+                {commentList?.map((comment) => (
                   <CommentCard key={comment.id} {...comment} />
                 ))}
               </div>
@@ -127,5 +138,5 @@ function ArticleDetail() {
     </div>
   );
 }
-// https://react-redux.realworld.io/#/article/Create-a-new-implementation-1?_k=9q4d9f
+
 export default ArticleDetail;

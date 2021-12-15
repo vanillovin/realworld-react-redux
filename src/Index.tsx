@@ -7,9 +7,10 @@ import "./index.css";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Main from "./realworld/pages/Main";
 import ArticleDetail from "./realworld/pages/ArticleDetail";
+import { QueryClient, QueryClientProvider } from "react-query";
 // import reportWebVitals from './reportWebVitals';
 
-// <App /> <Counter />
+const queryClient = new QueryClient();
 
 function Realworld() {
   return (
@@ -24,7 +25,9 @@ function Realworld() {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Realworld />
+    <QueryClientProvider client={queryClient}>
+      <Realworld />
+    </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById("app")
 );

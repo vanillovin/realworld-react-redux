@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../style.css";
 import NavigationBar from "../components/NavigationBar";
 import ArticlePreview from "../components/ArticlePreview";
-// https://react-redux.realworld.io/#/?_k=62bcsl
+import { useQuery } from "react-query";
 
 function Banner() {
   return (
@@ -16,17 +16,26 @@ function Banner() {
 }
 
 function Main() {
-  // https://api.realworld.io/api/articles?limit=10&offset=0
-  const [articleList, setArticleList] = useState<Array<Article>>([]);
+  // https://ko.javascript.info/destructuring-assignment#ref-546
 
-  useEffect(() => {
+  // 리액트 쿼리 문서 https://react-query.tanstack.com/overview
+
+  const {
+    isLoading,
+    error,
+    data: articleList,
+  } = useQuery<Array<Article>, Error>("ArticleList", () =>
     fetch("https://api.realworld.io/api/articles?limit=10&offset=0")
       .then((res) => res.json())
-      .then((body) => setArticleList(body.articles));
-  }, []);
+      .then((body) => body.articles)
+  );
 
-  if (articleList.length === 0) {
+  if (isLoading) {
     return <span>로딩 중</span>;
+  }
+
+  if (error instanceof Error) {
+    return <span>에러가 발생했습니다. {error.message}</span>;
   }
 
   return (
@@ -47,7 +56,7 @@ function Main() {
                 </ul>
               </div>
               <div>
-                {articleList.map((article) => (
+                {articleList?.map((article) => (
                   <ArticlePreview
                     key={article.slug}
                     slug={article.slug}
