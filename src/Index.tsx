@@ -7,6 +7,7 @@ import "./index.css";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Main from "./realworld/pages/Main";
 import ArticleDetail from "./realworld/pages/ArticleDetail";
+import Register from "./realworld/pages/Register";
 import { QueryClient, QueryClientProvider } from "react-query";
 // import reportWebVitals from './reportWebVitals';
 
@@ -18,6 +19,7 @@ function Realworld() {
       <Routes>
         <Route path="/articles/:slug" element={<ArticleDetail />} />
         <Route path="/" element={<Main />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
