@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-
+import { useNavigate } from "react-router-dom";
+import useCurrentUserAtom from "../state/currentUserAtom";
 interface RegisterData {
   username: string;
   email: string;
@@ -18,8 +19,17 @@ function Register() {
     },
   });
 
+  const { register: signUp } = useCurrentUserAtom();
+
+  const navigate = useNavigate();
   function onSubmit(data: RegisterData) {
-    alert(JSON.stringify(data));
+    signUp({
+      ...data,
+      bio: null,
+      image: "https://api.realworld.io/images/smiley-cyrus.jpeg",
+      token: "test",
+    });
+    navigate("/");
   }
 
   return (

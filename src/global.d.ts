@@ -36,3 +36,11 @@ type CommentData = {
     updateAt: string;
     body: string;
 }
+
+type User = {
+  username: string,
+  email: string,
+  bio: string | null,
+  image: string,
+  token: string,
+}
